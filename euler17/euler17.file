@@ -1,0 +1,45 @@
+def count(n):
+    sum = 0
+    if n >= 100:
+        # 100, 200, 300...
+        if n % 100 == 0:
+            return one(n/100) + 7
+
+        # one(n) + 'hundred'(7) + 'and'(3)
+        sum += one(n/100) + 10
+        n = n % 100
+
+    # less than 100
+    if n / 100 == 0:
+        # less than 10
+        if n / 10 == 0:
+            sum += one(n)
+        # 11, 12, 13...
+        elif n / 10 == 1:
+            sum += eleven(n%10)
+        else:
+            sum += ten(n/10) + one(n%10)
+    return sum
+
+def eleven(n):
+    eleven_arr = [0, 6, 6, 8, 8, 7, 7, 9, 8, 8]
+    return eleven_arr[n]
+
+def ten(n):
+    ten_arr = [0, 3, 6, 6, 5, 5, 5, 7, 6, 6]
+    return ten_arr[n]
+
+def one(n):
+    sum_arr = [0, 3, 3, 5, 4, 4, 3, 5, 5, 4]
+    return sum_arr[n]
+
+sum = 0
+for i in range(1, 1000):
+    sum += count(i)
+    print i, sum
+# one thousand(11)
+sum += 11
+print sum
+
+# 21124
+# keep getting 21094, missing 30 somewhere...

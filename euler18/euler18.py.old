@@ -1,0 +1,83 @@
+#!/usr/bin/env python
+
+def max1(l, i, v):
+    if v > l[i]: l[i] = v
+    return
+    
+def clean(l):
+    i = 0
+    while i < len(l):
+        l[i] = 0
+        i += 1
+    return
+
+# changes first argument
+def add(s, l):
+    i = 0
+    while i < len(s):
+        s[i] += l[i]
+        i += 1
+    return
+
+tree_arr = []
+f = open('euler18test.num', 'r')
+for line in f:
+    tree_arr.append(line.split())
+
+# Changes strings to int representation
+for i in range(len(tree_arr)):
+    for j in range(len(tree_arr[i])):
+        tree_arr[i][j] = int(tree_arr[i][j])
+
+level = len(tree_arr) - 2
+sum_arr = tree_arr[len(tree_arr)-1]
+max_arr = []
+
+# Initialize an array of len(s) of zeros
+i = 0
+while i < len(tree_arr):
+    max_arr.append(0)
+    i += 1
+
+level = len(tree_arr) - 1
+cur_level = 0
+
+print tree_arr
+#print sum_arr
+#print max_arr, '\n'
+
+while cur_level < level: # each tree level
+    range = level - cur_level
+    i, j = 0, 0
+    while i <= cur_level: # each index in tree level
+        j = i
+        while j <= i + range: # each value for each index in tree level
+            max1(max_arr, j, tree_arr[cur_level][i])
+            j += 1
+        i += 1
+    add(sum_arr, max_arr)
+    clean(max_arr)
+    cur_level += 1
+
+print sum_arr
+print max(sum_arr)
+'''
+while level >= 0:
+    index = 0
+    while index < len(s[level]):
+        k = index
+        while k < index + len(s) - level - 1:
+            print level, k, index + len(s) - level - 1
+            max(l, k, s[level][k])
+            k += 1
+        index += 1
+    add(s, l)
+    clean(l)
+    level -= 1
+
+print a[len(a)]
+'''
+# start at the bottom and work your way up recursively
+
+# totally wrong because doesn't take into account paths, it just
+# does the maximum of each row, which is wrong!!
